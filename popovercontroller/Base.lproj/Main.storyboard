@@ -33,6 +33,9 @@
                                 <rect key="frame" x="268" y="157" width="51" height="34"/>
                                 <animations/>
                                 <state key="normal" title="fdsfds"/>
+                                <connections>
+                                    <action selector="secondButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ebs-UM-rRL"/>
+                                </connections>
                             </button>
                         </subviews>
                         <animations/>
@@ -46,40 +49,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="320" y="429"/>
-        </scene>
-        <!--Pop View Controller-->
-        <scene sceneID="TZs-UG-vwW">
-            <objects>
-                <viewController storyboardIdentifier="PopViewController" id="vhE-5P-PDT" customClass="PopViewController" customModule="popovercontroller" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="VwB-G5-H7z"/>
-                        <viewControllerLayoutGuide type="bottom" id="mBA-fJ-TrY"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ODo-sb-Hco">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="k8H-MX-Yl3">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
-                            </stackView>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="k8H-MX-Yl3" secondAttribute="trailing" id="CgG-Rc-B7d"/>
-                            <constraint firstItem="mBA-fJ-TrY" firstAttribute="top" secondItem="k8H-MX-Yl3" secondAttribute="bottom" id="Iez-p7-sBx"/>
-                            <constraint firstItem="k8H-MX-Yl3" firstAttribute="top" secondItem="ODo-sb-Hco" secondAttribute="top" id="WHg-yW-PuZ"/>
-                            <constraint firstItem="k8H-MX-Yl3" firstAttribute="leading" secondItem="ODo-sb-Hco" secondAttribute="leading" id="Ywv-Gc-eMS"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="verticalStackView" destination="k8H-MX-Yl3" id="hWp-jq-l4N"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LiN-hF-CLj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="958" y="429"/>
         </scene>
     </scenes>
 </document>

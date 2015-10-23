@@ -21,14 +21,29 @@ class ViewController: UIViewController {
     }
 
     @IBAction func buttonAction(sender: UIButton) {
-        let popController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("PopViewController") as! PopViewController
-        popController.addAction(MKAlertAction(title: "Button1", style: .Default, handler: { () -> Void in
+        let popController = MKActionSheetController()
+        popController.addAction(MKActionSheetController.MKAlertAction(title: "Button1", style: .Default, handler: { () -> Void in
             print("Ok c'est bon")
         }))
-        popController.addAction(MKAlertAction(title: "Button2", style: .Default, handler: { () -> Void in
+        popController.addAction(MKActionSheetController.MKAlertAction(title: "Button2", style: .Destructive, handler: { () -> Void in
             print("Ok d'accord")
         }))
         popController.presentInViewController(sourceViewControllerThatPresent: self, fromSourceView: sender, sourceRect: sender.bounds, sourceBarButtonItem: nil)
     }
+    
+    @IBAction func secondButtonAction(sender: UIButton) {
+        let popController = MKActionSheetController()
+        popController.addAction(MKActionSheetController.MKAlertAction(title: "Prendre une photo", style: .Default, handler: { () -> Void in
+            print("Souriez !! Photo")
+        }))
+        popController.addAction(MKActionSheetController.MKAlertAction(title: "Prendre une vidéo", style: .Default, handler: { () -> Void in
+            print("C'est dans la boite ! ;)")
+        }))
+        popController.addAction(MKActionSheetController.MKAlertAction(title: "Annuler", style: .Destructive, handler: { () -> Void in
+            print("Dommage")
+        }))
+        popController.presentInViewController(sourceViewControllerThatPresent: self, fromSourceView: sender, sourceRect: sender.bounds, sourceBarButtonItem: nil)
+    }
+    
 }
 

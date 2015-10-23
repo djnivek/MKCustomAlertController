@@ -9,15 +9,49 @@
 import UIKit
 
 class MKActionSheetController: UITableViewController {
+    
+    class MKAlertAction {
+        
+        enum MKAlertActionStyle {
+            case Default
+            case Destructive
+            case Cancel
+        }
+        
+        var title: String
+        var style: MKAlertActionStyle = .Default
+        var handler: (() -> Void)?
+        
+        init(title: String, style: MKAlertActionStyle?, handler: (()-> Void)?) {
+            self.title = title
+            if style != nil {
+                self.style = style!
+            }
+            self.handler = handler
+        }
+    }
+    
+    private var _actions = [MKAlertAction]()
+    
+    var actions: [MKAlertAction] {
+        return _actions
+    }
+    
+    func addAction(action: MKAlertAction) {
+        _actions.append(action)
+        self.tableView.reloadData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.tableView.backgroundColor = UIColor.clearColor()
+        self.tableView.scrollEnabled = false
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.view.backgroundColor = UIColor.grayColor()
+        self.view.superview?.layer.cornerRadius = 2
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,24 +62,51 @@ class MKActionSheetController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return _actions.count
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
+        let cell = UITableViewCell(style: .Default, reuseIdentifier: nil)
+        let action = _actions[indexPath.item]
+        cell.textLabel?.text = action.title
+        cell.textLabel?.textAlignment = .Center
+        cell.textLabel?.textColor = action.style == .Destructive ? UIColor.redColor() : UIColor.whiteColor()
+        cell.backgroundColor = UIColor.clearColor()
         return cell
     }
-    */
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let functionHandler = _actions[indexPath.item].handler
+        functionHandler?()
+    }
+    
+    func generatePreferredSize() {
+        var sizeHeight = CGFloat(0)
+        var sizeWidth = CGFloat(0)
+        for action in _actions {
+            sizeHeight += CGRectGetHeight(tableView.cellForRowAtIndexPath(NSIndexPath(forItem: 1, inSection: 0))!.frame)
+            sizeWidth = max(150, max(CGFloat(action.title.characters.count) * 13.5, sizeWidth))
+        }
+        self.preferredContentSize = CGSize(width: sizeWidth, height: sizeHeight)
+    }
+    
+    func presentInViewController(sourceViewControllerThatPresent viewController: UIViewController, fromSourceView sourceView: UIView?, sourceRect: CGRect?, sourceBarButtonItem: UIBarButtonItem?) {
+        self.modalPresentationStyle = UIModalPresentationStyle.Popover
+        if sourceRect != nil {
+            self.popoverPresentationController?.sourceRect = sourceRect!
+        }
+        self.view.backgroundColor = UIColor.clearColor()
+        self.popoverPresentationController?.backgroundColor = UIColor.grayColor()
+        self.popoverPresentationController?.sourceView = sourceView
+        self.popoverPresentationController?.barButtonItem = sourceBarButtonItem
+        generatePreferredSize()
+        viewController.presentViewController(self, animated: true, completion: nil)
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.
