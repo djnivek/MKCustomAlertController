@@ -29,8 +29,8 @@
                                     <action selector="buttonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kj7-4l-6I0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ZM-Pp-fWy">
-                                <rect key="frame" x="268" y="157" width="51" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ZM-Pp-fWy">
+                                <rect key="frame" x="279" y="47" width="43" height="30"/>
                                 <animations/>
                                 <state key="normal" title="fdsfds"/>
                                 <connections>
@@ -41,14 +41,16 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="6ZM-Pp-fWy" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="47" id="7pl-Jb-nc8"/>
                             <constraint firstItem="qLU-mL-BBe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="100" id="NGM-qU-74q"/>
+                            <constraint firstItem="6ZM-Pp-fWy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="REp-Ho-PEo"/>
                             <constraint firstItem="qLU-mL-BBe" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="p8A-HX-j63"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="320" y="429"/>
+            <point key="canvasLocation" x="303" y="407"/>
         </scene>
     </scenes>
 </document>

@@ -21,28 +21,28 @@ class ViewController: UIViewController {
     }
 
     @IBAction func buttonAction(sender: UIButton) {
-        let popController = MKActionSheetController()
-        popController.addAction(MKActionSheetController.MKAlertAction(title: "Button1", style: .Default, handler: { () -> Void in
+        let popController = MKAlertController(style: .ActionSheet)
+        popController.addAction(MKAlertController.MKAlertAction(title: "Button1", style: .Default, handler: { () -> Void in
             print("Ok c'est bon")
         }))
-        popController.addAction(MKActionSheetController.MKAlertAction(title: "Button2", style: .Destructive, handler: { () -> Void in
+        popController.addAction(MKAlertController.MKAlertAction(title: "Button2", style: .Destructive, handler: { () -> Void in
             print("Ok d'accord")
         }))
         popController.presentInViewController(sourceViewControllerThatPresent: self, fromSourceView: sender, sourceRect: sender.bounds, sourceBarButtonItem: nil)
     }
     
     @IBAction func secondButtonAction(sender: UIButton) {
-        let popController = MKActionSheetController()
-        popController.addAction(MKActionSheetController.MKAlertAction(title: "Prendre une photo", style: .Default, handler: { () -> Void in
+        let popController = MKAlertController(style: .Alert)
+        popController.addAction(MKAlertController.MKAlertAction(title: "Prendre une photo", style: .Default, handler: { () -> Void in
             print("Souriez !! Photo")
         }))
-        popController.addAction(MKActionSheetController.MKAlertAction(title: "Prendre une vidéo", style: .Default, handler: { () -> Void in
+        popController.addAction(MKAlertController.MKAlertAction(title: "Prendre une vidéo", style: .Default, handler: { () -> Void in
             print("C'est dans la boite ! ;)")
         }))
-        popController.addAction(MKActionSheetController.MKAlertAction(title: "Annuler", style: .Destructive, handler: { () -> Void in
+        popController.addAction(MKAlertController.MKAlertAction(title: "Annuler", style: .Cancel, handler: { () -> Void in
             print("Dommage")
         }))
-        popController.presentInViewController(sourceViewControllerThatPresent: self, fromSourceView: sender, sourceRect: sender.bounds, sourceBarButtonItem: nil)
+        popController.presentInViewController(sourceViewControllerThatPresent: self)
     }
     
 }

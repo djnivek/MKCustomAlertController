@@ -12,7 +12,7 @@
 		0E3258AF1BD92A630022D241 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E3258AD1BD92A630022D241 /* Main.storyboard */; };
 		0E3258B11BD92A630022D241 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E3258B01BD92A630022D241 /* Assets.xcassets */; };
 		0E3258B41BD92A630022D241 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E3258B21BD92A630022D241 /* LaunchScreen.storyboard */; };
-		0EFE65361BDA5B1C002A2EDC /* MKActionSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE65351BDA5B1C002A2EDC /* MKActionSheetController.swift */; settings = {ASSET_TAGS = (); }; };
+		0EFE65361BDA5B1C002A2EDC /* MKAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE65351BDA5B1C002A2EDC /* MKAlertController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +23,7 @@
 		0E3258B01BD92A630022D241 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E3258B31BD92A630022D241 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0E3258B51BD92A630022D241 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0EFE65351BDA5B1C002A2EDC /* MKActionSheetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKActionSheetController.swift; sourceTree = "<group>"; };
+		0EFE65351BDA5B1C002A2EDC /* MKAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKAlertController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +62,7 @@
 				0E3258B01BD92A630022D241 /* Assets.xcassets */,
 				0E3258B21BD92A630022D241 /* LaunchScreen.storyboard */,
 				0E3258B51BD92A630022D241 /* Info.plist */,
-				0EFE65351BDA5B1C002A2EDC /* MKActionSheetController.swift */,
+				0EFE65351BDA5B1C002A2EDC /* MKAlertController.swift */,
 			);
 			path = popovercontroller;
 			sourceTree = "<group>";
@@ -139,7 +139,7 @@
 			files = (
 				0E3258AC1BD92A630022D241 /* ViewController.swift in Sources */,
 				0E3258AA1BD92A630022D241 /* AppDelegate.swift in Sources */,
-				0EFE65361BDA5B1C002A2EDC /* MKActionSheetController.swift in Sources */,
+				0EFE65361BDA5B1C002A2EDC /* MKAlertController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

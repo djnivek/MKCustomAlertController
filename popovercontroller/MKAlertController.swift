@@ -1,5 +1,5 @@
 //
-//  MKActionSheetController.swift
+//  MKAlertController.swift
 //  popovercontroller
 //
 //  Created by Kévin MACHADO on 23/10/2015.
@@ -8,7 +8,15 @@
 
 import UIKit
 
-class MKActionSheetController: UITableViewController {
+class MKAlertController: UITableViewController {
+    
+    private weak var sourceViewController: UIViewController!
+    private var bluredView: UIView?
+    
+    enum MKAlertActionStyle {
+        case ActionSheet
+        case Alert
+    }
     
     class MKAlertAction {
         
@@ -31,27 +39,51 @@ class MKActionSheetController: UITableViewController {
         }
     }
     
+    var style: MKAlertActionStyle
+    
     private var _actions = [MKAlertAction]()
     
     var actions: [MKAlertAction] {
         return _actions
     }
     
+    init(style: MKAlertActionStyle) {
+        self.style = style
+        if style == .Alert {
+            super.init(style: .Grouped)
+        } else {
+            super.init(style: .Plain)
+        }
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        style = .Alert
+        super.init(coder: aDecoder)
+    }
+    
     func addAction(action: MKAlertAction) {
         _actions.append(action)
         self.tableView.reloadData()
     }
+    
+    override func viewDidLayoutSubviews() {
+        tableView.frame.size = preferredSize()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.backgroundColor = UIColor.clearColor()
+        self.view.backgroundColor = UIColor.whiteColor()
         self.tableView.scrollEnabled = false
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.view.backgroundColor = UIColor.grayColor()
-        self.view.superview?.layer.cornerRadius = 2
+        self.view.backgroundColor = UIColor.whiteColor()
+        if style == .Alert {
+            self.view.superview?.layer.cornerRadius = 6
+        } else {
+            self.view.superview?.layer.cornerRadius = 2
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,7 +106,7 @@ class MKActionSheetController: UITableViewController {
         let action = _actions[indexPath.item]
         cell.textLabel?.text = action.title
         cell.textLabel?.textAlignment = .Center
-        cell.textLabel?.textColor = action.style == .Destructive ? UIColor.redColor() : UIColor.whiteColor()
+        cell.textLabel?.textColor = action.style == .Destructive ? UIColor.redColor() : (action.style == .Cancel ? UIColor.blueColor() : UIColor.blackColor())
         cell.backgroundColor = UIColor.clearColor()
         return cell
     }
@@ -82,31 +114,58 @@ class MKActionSheetController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let functionHandler = _actions[indexPath.item].handler
         functionHandler?()
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func generatePreferredSize() {
+    private func preferredSize() -> CGSize {
         var sizeHeight = CGFloat(0)
         var sizeWidth = CGFloat(0)
+        
+        if style == .Alert {
+            sizeHeight += 50
+        }
+        
         for action in _actions {
             sizeHeight += CGRectGetHeight(tableView.cellForRowAtIndexPath(NSIndexPath(forItem: 1, inSection: 0))!.frame)
             sizeWidth = max(150, max(CGFloat(action.title.characters.count) * 13.5, sizeWidth))
         }
-        self.preferredContentSize = CGSize(width: sizeWidth, height: sizeHeight)
+        
+        return CGSize(width: sizeWidth, height: sizeHeight)
+    }
+    
+    private func setPreferredSize(size: CGSize) {
+        self.preferredContentSize = size
+    }
+    
+    func presentInViewController(sourceViewControllerThatPresent viewController: UIViewController) {
+        sourceViewController = viewController
+        self.modalPresentationStyle = UIModalPresentationStyle.FormSheet
+        setPreferredSize(preferredSize())
+        sourceViewController.presentViewController(self, animated: true, completion: nil)
     }
     
     func presentInViewController(sourceViewControllerThatPresent viewController: UIViewController, fromSourceView sourceView: UIView?, sourceRect: CGRect?, sourceBarButtonItem: UIBarButtonItem?) {
+        
+        if style == .Alert {
+            self.presentInViewController(sourceViewControllerThatPresent: viewController)
+            return
+        }
+        
+        sourceViewController = viewController
+        
         self.modalPresentationStyle = UIModalPresentationStyle.Popover
         if sourceRect != nil {
             self.popoverPresentationController?.sourceRect = sourceRect!
         }
         self.view.backgroundColor = UIColor.clearColor()
-        self.popoverPresentationController?.backgroundColor = UIColor.grayColor()
+        self.popoverPresentationController?.backgroundColor = UIColor.whiteColor()
         self.popoverPresentationController?.sourceView = sourceView
         self.popoverPresentationController?.barButtonItem = sourceBarButtonItem
-        generatePreferredSize()
-        viewController.presentViewController(self, animated: true, completion: nil)
+        self.popoverPresentationController?.delegate = self
+        setPreferredSize(preferredSize())
+        
+        sourceViewController.presentViewController(self, animated: true, completion: nil)
     }
-    
 
     /*
     // Override to support conditional editing of the table view.
@@ -153,4 +212,36 @@ class MKActionSheetController: UITableViewController {
     }
     */
 
+}
+
+extension MKAlertController: UIPopoverPresentationControllerDelegate {
+    
+    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+        let blured = UIBlurEffect(style: .Light)
+        bluredView = UIVisualEffectView(effect: blured)
+        bluredView!.frame = sourceViewController.view.frame
+        bluredView?.alpha = 0.0
+        sourceViewController.view.addSubview(bluredView!)
+        UIView.animateWithDuration(0.3) { () -> Void in
+            bluredView?.alpha = 0.8
+        }
+    }
+    
+    func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            bluredView?.alpha = 0
+            }) { (finished) -> Void in
+                bluredView?.removeFromSuperview()
+        }
+    }
+    
+    override func dismissViewControllerAnimated(flag: Bool, completion: (() -> Void)?) {
+        super.dismissViewControllerAnimated(flag, completion: completion)
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            bluredView?.alpha = 0
+            }) { (finished) -> Void in
+                bluredView?.removeFromSuperview()
+        }
+    }
+    
 }
